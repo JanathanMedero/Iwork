@@ -26,13 +26,13 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				  	@foreach($employees as $employe)
+				  	@foreach($employees as $employee)
 						<tr>
-					    	<td class="text-center">{{ $employe->name }}</td>
-					    	<td class="text-center">{{ $employe->age }}</td>
-					    	@if($user->id == $employe->user_id)
+					    	<td class="text-center">{{ $employee->name }}</td>
+					    	<td class="text-center">{{ $employee->age }}</td>
+					    	@if($user->id == $employee->user_id)
 						    	<td class="text-center">
-						    	<a href="#" class="btn btn-warning">Editar</a>
+						    	<a href="{{ route('Employee.edit', $employee->slug) }}" class="btn btn-warning">Editar</a>
 						      	<a href="#" class="btn btn-danger">Eliminar</a>
 						      	<a href="#" class="btn btn-success">Historial del empleado</a>
 						    	</td>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\EmployeeRequest;
+use App\Http\Requests\EmployeeUpdateRequest;
+use App\Http\Requests\JobUpdateRequest;
 use App\Employee;
 use App\Job;
 use Auth;
@@ -100,9 +102,15 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $employee = Employee::where('slug', $slug)->first();
+
+        if (Auth::user()->id != $employee->user_id) {
+            return redirect()->route('Employee.index')->with('danger', 'No puedes acceder a este empleado');
+        }
+
+        return view('employees.edit', compact('employee'));
     }
 
     /**
@@ -112,9 +120,28 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmployeeUpdateRequest $request, $slug)
     {
-        //
+        $employee = Employee::where('slug', $slug)->first();
+        $slug = Str::slug($request->name, '-');
+        $employee->name = $request->name;
+        $employee->slug = $slug;
+        $employee->age = $request->age;
+        $employee->save();
+
+        return redirect()->route('Employee.index')->with('update', 'Empleado actualizado correctamente');
+    }
+
+    public function update_job(JobUpdateRequest $request, $id)
+    {
+        $job = Job::where('id', $id)->first();
+
+        $job->job = $request->job;
+        $job->salary = $request->salary;
+        $job->time_in_the_company = $request->time;
+        $job->save();
+
+        return redirect()->route('Employee.index')->with('update', 'Puesto actualizado correctamente');
     }
 
     /**

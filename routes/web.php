@@ -24,6 +24,9 @@ Route::group(['middleware' => 'auth'], function () {
 	//Employees
 	Route::get('/home/new-employee', 'EmployeeController@create')->name('Employee.create');
 	Route::get('/home/employees', 'EmployeeController@index')->name('Employee.index');
-	Route::post('/home/employe/created', 'EmployeeController@store')->name('Employee.store');
+	Route::post('/home/employee/created', 'EmployeeController@store')->name('Employee.store');
+	Route::get('/home/employee/edit/{slug}', 'EmployeeController@edit')->name('Employee.edit');
+	Route::put('/home/employee/{slug}/update', 'EmployeeController@update')->name('Employee.update');
+	Route::put('/home/employee/job/{id}/update', 'EmployeeController@update_job')->name('Employee.update.job');
 
 });

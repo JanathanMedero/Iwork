@@ -26,23 +26,34 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				  	@foreach($employees as $employee)
-						<tr>
-					    	<td class="text-center">{{ $employee->name }}</td>
-					    	<td class="text-center">{{ $employee->age }}</td>
-					    	@if($user->id == $employee->user_id)
-						    	<td class="text-center">
-						    	<a href="{{ route('Employee.edit', $employee->slug) }}" class="btn btn-warning">Editar</a>
-						      	<a href="#" class="btn btn-danger">Eliminar</a>
-						      	<a href="#" class="btn btn-success">Historial del empleado</a>
-						    	</td>
-						    @else
-						    	<td class="text-center">
-						    		<a href="#" class="btn btn-success">Historial del empleado</a>
-						    	</td>
-					    	@endif
-					    </tr>
-				    @endforeach
+					  	@if($employees->isEmpty())
+							<tr>
+								<td colspan="3" class="text-center">
+									<h4>Sin empleados</h4>
+								</td>
+							</tr>
+					  	@endif
+					  	@foreach($employees as $employee)
+							<tr>
+						    	<td class="text-center">{{ $employee->name }}</td>
+						    	<td class="text-center">{{ $employee->age }}</td>
+						    	@if($user->id == $employee->user_id)
+							    	<td class="text-center">
+							    	<a href="{{ route('Employee.edit', $employee->slug) }}" class="btn btn-warning">Editar</a>
+							    	<form action="{{ route('Employee.destroy', $employee->slug) }}" method="POST" class="form-inline">
+							    		@csrf
+							    		@method('delete')
+							    		<button type="submit" class="btn btn-danger">Eliminar</button>
+							    	</form>
+							      	<a href="#" class="btn btn-success">Historial del empleado</a>
+							    	</td>
+							    @else
+							    	<td class="text-center">
+							    		<a href="#" class="btn btn-success">Historial del empleado</a>
+							    	</td>
+						    	@endif
+						    </tr>
+					    @endforeach
 				  </tbody>
 				</table>
 			</div>

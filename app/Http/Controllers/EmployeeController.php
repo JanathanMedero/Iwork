@@ -150,8 +150,11 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-        //
+        Employee::where('slug', $slug)->delete();
+
+        return redirect()->route('Employee.index')->with('success', 'Empleado eliminado correctamente');
+
     }
 }

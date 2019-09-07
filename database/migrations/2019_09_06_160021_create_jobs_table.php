@@ -17,7 +17,7 @@ class CreateJobsTable extends Migration
             $table->Increments('id');
             $table->unsignedInteger('employee_id');
 
-            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');;
             $table->string('job');
             $table->decimal('salary', 8, 2);
             $table->string('time_in_the_company');

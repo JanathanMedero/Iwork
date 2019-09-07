@@ -44,7 +44,14 @@
     </div>
     <div class="row justify-content-center">
     	<div class="col-md-8 mt-4">
-    		<h3>Editar Puestos</h3>
+    		<div class="row">
+    			<div class="col-md-6 d-flex align-items-center">
+    				<h3 class="mb-0">Editar Puestos</h3>
+    			</div>
+    			<div class="col-md-6 d-flex justify-content-end">
+    				<a href="{{ route('Job.create', $employee->slug) }}" class="btn btn-primary">Nuevo Puesto</a>
+    			</div>
+    		</div>
     	</div>
     </div>
     <div class="row justify-content-center">
@@ -53,7 +60,7 @@
     	</div>
     </div>
 	@foreach($employee->Jobs as $employee)
-	    <div class="row justify-content-center">
+	    <div class="row justify-content-center mb-4">
 	        <div class="col-md-8">
 	            <div class="card">
 	                <div class="card-header">Puesto: {{ $employee->job }}</div>

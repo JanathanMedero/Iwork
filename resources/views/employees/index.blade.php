@@ -12,7 +12,7 @@
 				<p class="display-4 mb-0">Empleados</p>
 			</div>	
 			<div class="col-md-6 d-flex justify-content-end align-items-center">
-				<a href="{{ route('Employee.create') }}" class="btn btn-primary">Nuevo Empleado</a>
+				<a href="{{ route('Employee.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Nuevo Empleado</a>
 			</div>
 		</div>
 		<div class="row mt-4">
@@ -35,21 +35,23 @@
 					  	@endif
 					  	@foreach($employees as $employee)
 							<tr>
-						    	<td class="text-center">{{ $employee->name }}</td>
-						    	<td class="text-center">{{ $employee->age }}</td>
+						    	<td class="text-center pt-4">{{ $employee->name }}</td>
+						    	<td class="text-center pt-4">{{ $employee->age }}</td>
 						    	@if($user->id == $employee->user_id)
 							    	<td class="text-center">
-							    	<a href="{{ route('Employee.edit', $employee->slug) }}" class="btn btn-warning">Editar</a>
-							    	<form action="{{ route('Employee.destroy', $employee->slug) }}" method="POST" class="form-inline">
+							    	<form action="{{ route('Employee.destroy', $employee->slug) }}" method="POST" class="form-inline-block">
+							    		<a href="{{ route('Employee.edit', $employee->slug) }}" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
 							    		@csrf
 							    		@method('delete')
-							    		<button type="submit" class="btn btn-danger">Eliminar</button>
+							    		<button onclick="deleteEmployee(event)" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
 							    	</form>
-							      	<a href="#" class="btn btn-success">Historial del empleado</a>
+							    	<button class="btn btn-success mt-2" data-toggle="modal" data-target="#historyJobs-{{ $employee->slug }}"><i class="fas fa-history"></i> Historial del empleado</button>
+							    	@include('partials.modal')
 							    	</td>
 							    @else
 							    	<td class="text-center">
-							    		<a href="#" class="btn btn-success">Historial del empleado</a>
+							    		<button class="btn btn-success mt-2" data-toggle="modal" data-target="#historyJobs-{{ $employee->slug }}"><i class="fas fa-history"></i> Historial del empleado</button>
+							    		@include('partials.modal')
 							    	</td>
 						    	@endif
 						    </tr>
@@ -59,4 +61,11 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	    function deleteEmployee(e) {
+	      if (!confirm("Eliminar Empleado?")){
+	        e.preventDefault();
+	      }
+	    }
+	</script>
 @endsection

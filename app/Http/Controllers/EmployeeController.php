@@ -110,6 +110,8 @@ class EmployeeController extends Controller
             return redirect()->route('Employee.index')->with('danger', 'No puedes acceder a este empleado');
         }
 
+        //dd($employee->jobs);
+
         return view('employees.edit', compact('employee'));
     }
 

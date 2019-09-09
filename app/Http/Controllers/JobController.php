@@ -92,6 +92,8 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Job::where('id', $id)->delete();
+
+        return redirect()->route('Employee.index')->with('success', 'Puesto eliminado correctamente');
     }
 }

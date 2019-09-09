@@ -52,7 +52,7 @@
 					  			</div>
 					 		</div>
 					 	</div>
-					  <button type="submit" class="btn btn-success">Crear empleado</button>
+					  <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Crear empleado</button>
 					</form>
                 </div>
             </div>

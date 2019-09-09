@@ -28,10 +28,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/home/employee/edit/{slug}', 'EmployeeController@edit')->name('Employee.edit');
 	Route::put('/home/employee/{slug}/update', 'EmployeeController@update')->name('Employee.update');
 	Route::put('/home/employee/job/{id}/update', 'EmployeeController@update_job')->name('Employee.update.job');
-	Route::delete('/home/employe/{slug}/deleted', 'EmployeeController@destroy')->name('Employee.destroy');
+	Route::delete('/home/employee/{slug}/deleted', 'EmployeeController@destroy')->name('Employee.destroy');
 
 	//Jobs
 	Route::get('/home/employee/{slug}/new/job', 'JobController@create')->name('Job.create');
 	Route::post('/home/employee/{slug}/new/job/added', 'JobController@store')->name('Job.store');
+	Route::delete('/home/employee/job/{id}/deleted', 'JobController@destroy')->name('Job.destroy');
 
 });
